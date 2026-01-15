@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>read-todo</title>
+    <link rel="stylesheet" href="/uni.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <h2>Read-only view</h2>
+        <div id="todo-list" class="todo-list"></div>
+    </div>
+
+    <script>
+        fetch('/todo.json')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                const list = document.getElementById('todo-list');
+                data.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'todo-item';
+
+                    const title = document.createElement('div');
+                    title.textContent = item.title;
+                    title.className = 'todo-title';
+
+                    const meta = document.createElement('div');
+                    meta.textContent = `User: ${item.userId} • ID: ${item.id}`;
+                    meta.className = 'todo-meta';
+
+                    const status = document.createElement('div');
+                    status.textContent = item.completed ? 'Completed' : 'Not completed';
+                    status.className = item.completed ? 'todo-status completed' : 'todo-status pending';
+
+                    itemDiv.appendChild(title);
+                    itemDiv.appendChild(meta);
+                    itemDiv.appendChild(status);
+
+                    list.appendChild(itemDiv);
+                });
+            });
+    </script>
+
+</body>
+</html>
