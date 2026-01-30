@@ -1,19 +1,20 @@
-<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>todo</title>
 </head>
-<body>      
-    
+
+<body>
+
     <script>
-        fetch('/todo.json')
-            .then(response => response.json())
+        fetch('/todos')
+            .then(res => res.json())
             .then(data => {
                 document.body.innerHTML += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
             });
     </script>
-    
 </body>
+
 </html>
